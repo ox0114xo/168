@@ -3,138 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>168煙火團隊 | 專業科技下單平台 V2.0</title>
+    <title>168煙火團隊 | 全台最大煙火批發零售中心</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 高科技霓虹與毛玻璃特效 */
-        .neon-text { text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055, 0 0 30px #ff0055; }
-        .neon-border { box-shadow: 0 0 15px rgba(255, 0, 85, 0.5); }
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .tech-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .tech-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 10px 30px rgba(255, 0, 85, 0.4);
-            border-color: rgba(255, 0, 85, 0.5);
-            z-index: 10;
-        }
-        /* 隱藏捲軸但保留功能 */
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #ff0055; border-radius: 10px; }
+        /* 隱藏捲軸但保留滾動功能 */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
+        .category-btn { transition: all 0.3s ease; }
         .category-btn.active {
-            background: linear-gradient(to right, #db2777, #9333ea);
-            border-color: #ff0055;
-            box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+            background-color: #dc2626; /* 專業大氣的煙火紅 */
             color: white;
+            border-color: #dc2626;
+            box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.4);
         }
         
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .product-card { transition: all 0.3s ease; }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
-        .animate-fade-in-up { animation: fadeInUp 0.5s ease-out; }
     </style>
 </head>
-<body class="bg-slate-950 text-white font-sans antialiased min-h-screen flex flex-col selection:bg-pink-500 selection:text-white">
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col selection:bg-red-500 selection:text-white">
 
-    <nav class="glass-panel fixed w-full z-50 top-0 border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-20">
-            <div class="flex items-center gap-4">
-                <span class="text-3xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 neon-text">168 FIREWORKS</span>
-            </div>
-            <div class="flex items-center gap-6">
-                <div class="relative hidden md:block">
-                    <input type="text" id="searchInput" placeholder="搜尋彈藥代號..." class="bg-gray-900 border border-gray-700 rounded-full py-2 px-4 pl-10 text-sm focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 w-64 transition-all">
-                    <svg class="w-4 h-4 text-gray-400 absolute left-4 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+    <nav class="bg-white fixed w-full z-50 top-0 border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center text-white font-black text-xl shadow-md">
+                        168
+                    </div>
+                    <span class="text-2xl font-black tracking-wider text-gray-900">煙火團隊<span class="text-sm font-normal text-gray-500 ml-2 hidden sm:inline">批發 · 零售 · 活動承辦</span></span>
                 </div>
-                <button class="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2.5 rounded-full font-bold neon-border hover:scale-105 transition-transform flex items-center gap-2">
-                    🛒 購物車 <span id="cartCount" class="bg-white text-pink-600 px-2 rounded-full text-xs font-black">0</span>
-                </button>
+                
+                <div class="flex items-center gap-4">
+                    <div class="relative hidden md:block">
+                        <input type="text" id="searchInput" placeholder="搜尋煙火名稱..." class="bg-gray-100 border border-gray-200 text-gray-800 rounded-full py-2 px-4 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white w-64 transition-all">
+                        <svg class="w-4 h-4 text-gray-500 absolute left-4 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    
+                    <button class="text-gray-600 hover:text-red-600 font-bold text-sm px-3 py-2 transition-colors hidden sm:block">
+                        會員登入
+                    </button>
+                    
+                    <button class="bg-gray-900 hover:bg-gray-800 text-white px-5 py-2.5 rounded-full font-bold shadow-md transition-all flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span class="hidden sm:inline">詢價車</span>
+                        <span id="cartCount" class="bg-red-600 text-white px-2 rounded-full text-xs py-0.5">0</span>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="bg-red-50 border-b border-red-100 pt-20">
+        <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 text-sm text-red-800 flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+            <span class="font-bold">最新公告：</span> 由於業務繁忙，面交請務必提早預約！客服 LINE: @142guzth
+        </div>
+    </div>
+
+    <main class="flex-grow py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
-        <div class="mb-10">
-            <h2 class="text-xl font-bold mb-4 text-gray-400 tracking-widest flex items-center gap-2">
-                <span class="w-2 h-2 bg-pink-500 rounded-full animate-ping"></span> 戰備分類目錄
-            </h2>
-            <div id="category-container" class="flex gap-3 overflow-x-auto pb-4 pt-2">
+        <div class="mb-8 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+            <h2 class="text-sm font-bold mb-3 text-gray-500 tracking-widest uppercase">商品目錄</h2>
+            <div id="category-container" class="flex gap-2 overflow-x-auto pb-2">
                 </div>
         </div>
 
-        <div class="flex items-end justify-between mb-8 border-b border-gray-800 pb-4">
-            <h2 id="current-category-title" class="text-4xl font-black text-white border-l-4 border-pink-500 pl-4">全部商品</h2>
-            <span id="product-count" class="text-pink-400 font-mono text-sm tracking-widest">系統初始化中...</span>
+        <div class="flex items-end justify-between mb-6">
+            <h2 id="current-category-title" class="text-3xl font-black text-gray-900 border-l-4 border-red-600 pl-4">全部商品</h2>
+            <span id="product-count" class="text-gray-500 text-sm font-medium">載入中...</span>
         </div>
         
         <div class="md:hidden mb-6 relative">
-            <input type="text" id="searchInputMobile" placeholder="搜尋彈藥代號..." class="bg-gray-900 border border-gray-700 rounded-full py-3 px-4 pl-10 text-sm focus:outline-none focus:border-pink-500 w-full text-white">
+            <input type="text" id="searchInputMobile" placeholder="搜尋煙火名稱..." class="bg-white border border-gray-300 rounded-lg py-3 px-4 pl-10 text-sm focus:outline-none focus:border-red-500 w-full text-gray-800 shadow-sm">
             <svg class="w-5 h-5 text-gray-400 absolute left-4 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
 
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             </div>
     </main>
 
-    <footer class="glass-panel py-8 mt-auto border-t border-gray-800/50">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-400 text-sm">聯絡電話：0915-830-652 李先生 | LINE ID: @142guzth</p>
-            <p class="text-gray-600 text-xs font-mono tracking-widest mt-2">&copy; 2026 168 FIREWORKS TEAM. HIGH-TECH PLATFORM ONLINE.</p>
+    <footer class="bg-white border-t border-gray-200 mt-auto py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="text-gray-900 font-black text-xl mb-1">168煙火團隊</p>
+                <p class="text-gray-500 text-sm">合法煙火販售 / 專業大型活動施放</p>
+            </div>
+            <div class="text-right">
+                <p class="text-gray-700 font-bold text-lg">0915-830-652 李先生</p>
+                <p class="text-gray-500 text-sm">LINE ID: @142guzth (請直接通話)</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // 🚀 這裡是你用 Termux 爬蟲抓出來的真實資料庫！
-        // 未來如果有新增商品，只要把新的 JSON 貼進來替換這個 database 變數即可。
+        // 這裡放我們先前在 V2 抓到的真實煙火資料 (作為展示)
+        // 等你從電腦後台把 Excel 抓下來，我們隨時可以替換成最完整的版本！
         const database = {
-            "全站熱銷主打": [
-                { "name": "168168", "image": "https://img3.shop2000.com.tw/33679/face20231106173521.jpg" }
-            ],
-            "小盒裝煙火(升空類)-煙火": [
+            "小盒裝煙火": [
                 { "name": "12發 玄武", "image": "https://img3.shop2000.com.tw/33679/p20/58299649-1.jpg" },
                 { "name": "12發 繁花", "image": "https://img3.shop2000.com.tw/33679/p20/57441456-1.jpg" },
                 { "name": "20發 幸福", "image": "https://img3.shop2000.com.tw/33679/p19/56743928-1.jpg" },
                 { "name": "12發 大富", "image": "https://img3.shop2000.com.tw/33679/p19/54382583-1.jpg" },
-                { "name": "9發 大發", "image": "https://img3.shop2000.com.tw/33679/p19/54382569-1.jpg" },
-                { "name": "9發 大吉", "image": "https://img3.shop2000.com.tw/33679/p19/52427688-1.jpg" },
-                { "name": "9發 驫", "image": "https://img3.shop2000.com.tw/33679/p18/45423239-1.jpg" },
-                { "name": "9發 鬥陣ㄟ", "image": "https://img3.shop2000.com.tw/33679/p17/41714252-1.jpg" },
-                { "name": "12發 大利", "image": "https://img3.shop2000.com.tw/33679/p19/52427687-1.jpg" },
-                { "name": "16發 造花工廠", "image": "https://img3.shop2000.com.tw/33679/p16/38886689-1.jpg" },
-                { "name": "16發 福星", "image": "https://img3.shop2000.com.tw/33679/p18/48197693-1.jpg" },
-                { "name": "20發 金紅", "image": "https://img3.shop2000.com.tw/33679/p18/45295507-1.jpg" },
-                { "name": "100發 亮晶晶/空美", "image": "https://img3.shop2000.com.tw/33679/p16/40705881-1.jpg" }
+                { "name": "9發 大發", "image": "https://img3.shop2000.com.tw/33679/p19/54382569-1.jpg" }
             ],
-            "中盒裝煙火(升空類)-煙火": [
+            "中盒裝煙火": [
                 { "name": "26發 一代佳人", "image": "https://img3.shop2000.com.tw/33679/p20/57442520-2.jpg" },
                 { "name": "20發 彩燕紛飛(炸游星)", "image": "https://img3.shop2000.com.tw/33679/p20/57442456-1.jpg" },
-                { "name": "15發 520", "image": "https://img3.shop2000.com.tw/33679/p15/36015986-1.jpg" },
-                { "name": "15發精彩(扇型)", "image": "https://img3.shop2000.com.tw/33679/p16/36874536-1.jpg" },
-                { "name": "18發 閃閃發光", "image": "https://img3.shop2000.com.tw/33679/p17/41851702-1.jpg" },
-                { "name": "24發 喜相逢", "image": "https://img3.shop2000.com.tw/33679/p3/3255978-1.jpg" },
-                { "name": "25發 金燦燦", "image": "https://img3.shop2000.com.tw/33679/p17/42271280-1.jpg" },
-                { "name": "40發 大亂鬥", "image": "https://img3.shop2000.com.tw/33679/p18/45244237-1.jpg" },
-                { "name": "42發 花火妖姬", "image": "https://img3.shop2000.com.tw/33679/p18/45244264-1.jpg" },
-                { "name": "49發 華燈初上", "image": "https://img3.shop2000.com.tw/33679/p18/45244163-1.jpg" }
+                { "name": "15發 520", "image": "https://img3.shop2000.com.tw/33679/p15/36015986-1.jpg" }
             ],
-            "大盒裝煙火(升空類)-煙火": [
+            "大盒裝煙火": [
                 { "name": "16發 王者榮耀", "image": "https://img3.shop2000.com.tw/33679/p20/57455838-1.jpg" },
                 { "name": "30發銀柳", "image": "https://img3.shop2000.com.tw/33679/p20/57454419-3.jpg" },
-                { "name": "28發五花八門", "image": "https://img3.shop2000.com.tw/33679/p20/57454410-1.jpg" },
-                { "name": "23發 大滿貫", "image": "https://img3.shop2000.com.tw/33679/p20/57454399-1.jpg" },
-                { "name": "16發 秋之韻 ( 扇型)", "image": "https://img3.shop2000.com.tw/33679/p20/57441703-1.jpg" },
-                { "name": "10發 冠中冠", "image": "https://img3.shop2000.com.tw/33679/p17/41963852-1.jpg" },
-                { "name": "12發 大無敵 (扇形)", "image": "https://img3.shop2000.com.tw/33679/p18/45437187-1.jpg" },
-                { "name": "12發 狼叫12", "image": "https://img3.shop2000.com.tw/33679/p17/41928870-1.jpg" },
-                { "name": "20發歡樂頌 (扇型)", "image": "https://img3.shop2000.com.tw/33679/p16/38717066-1.jpg" },
-                { "name": "25發 五彩繽紛 (扇型)", "image": "https://img3.shop2000.com.tw/33679/p18/45134233-1.jpg" }
+                { "name": "28發五花八門", "image": "https://img3.shop2000.com.tw/33679/p20/57454410-1.jpg" }
+            ],
+            "熱銷主打": [
+                { "name": "加長型噴燈 3支", "image": "https://img3.shop2000.com.tw/33679/p14/22997543-1.jpg" },
+                { "name": "一對12 無線遙控燃放設備", "image": "https://img3.shop2000.com.tw/33679/p16/38403098-1.jpg" }
             ]
         };
 
@@ -142,33 +132,24 @@
         const productGrid = document.getElementById('product-grid');
         const titleElement = document.getElementById('current-category-title');
         const countElement = document.getElementById('product-count');
-        const searchInput = document.getElementById('searchInput');
-        const searchInputMobile = document.getElementById('searchInputMobile');
 
-        let cartTotal = 0;
-
-        // 系統初始化
         function init() {
             renderCategories();
             renderProducts('全部商品'); 
         }
 
-        // 動態生成分類按鈕
         function renderCategories() {
-            let html = `<button onclick="renderProducts('全部商品')" class="category-btn active px-6 py-2 rounded-full border border-gray-700 bg-gray-900 text-gray-300 font-bold whitespace-nowrap transition-all hover:border-pink-500" data-cat="全部商品">🌐 全部商品</button>`;
+            let html = `<button onclick="renderProducts('全部商品')" class="category-btn active px-5 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 font-bold text-sm whitespace-nowrap hover:border-red-500" data-cat="全部商品">全部商品</button>`;
             
             Object.keys(database).forEach(category => {
-                // 跳過空的或不需要的分類
                 if(database[category].length > 0) {
-                    html += `<button onclick="renderProducts('${category}')" class="category-btn px-6 py-2 rounded-full border border-gray-700 bg-gray-900 text-gray-300 font-bold whitespace-nowrap transition-all hover:border-pink-500" data-cat="${category}">${category}</button>`;
+                    html += `<button onclick="renderProducts('${category}')" class="category-btn px-5 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 font-bold text-sm whitespace-nowrap hover:border-red-500" data-cat="${category}">${category}</button>`;
                 }
             });
             categoryContainer.innerHTML = html;
         }
 
-        // 核心渲染引擎與自動淨化濾鏡
         function renderProducts(categoryName, searchQuery = "") {
-            // 切換按鈕亮光狀態
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if(btn.getAttribute('data-cat') === categoryName) btn.classList.add('active');
@@ -177,65 +158,51 @@
             titleElement.innerText = categoryName;
             let productsToRender = [];
 
-            // 讀取對應資料
             if (categoryName === '全部商品') {
                 Object.values(database).forEach(arr => productsToRender.push(...arr));
             } else {
                 productsToRender = database[categoryName] || [];
             }
 
-            // 🛡️ 啟動高科技淨化濾鏡：斬除舊系統雜訊
+            // 🛡️ 強力殺蟲劑：確保沒有 Shop2000 的系統 GIF 圖混進來
             productsToRender = productsToRender.filter(item => {
-                const name = item.name || "";
-                const img = item.image ? item.image.toLowerCase() : "";
-                
-                // 排除 .gif 小圖、登入圖示、系統預設圖
-                if (img.includes('.gif') || img.includes('login') || img.includes('sys/')) return false;
-                // 排除選單文字
-                if (name.includes('首頁') || name.includes('商品') || name.includes('消息') || name.includes('FAQ')) return false;
-                if (name.includes('加入會員') || name.includes('電子報') || name.includes('相關連結') || name.includes('Email')) return false;
-                if (name.includes('建立新網網站')) return false;
-                
-                return true;
+                const img = item.image.toLowerCase();
+                return !img.includes('.gif') && !img.includes('sys/');
             });
 
-            // 移除重複抓取的商品 (以圖片網址為唯一值)
+            // 移除重複
             productsToRender = [...new Map(productsToRender.map(item => [item.image, item])).values()];
 
-            // 啟動搜尋引擎
             if (searchQuery) {
                 productsToRender = productsToRender.filter(p => p.name.includes(searchQuery));
                 titleElement.innerText = `搜尋結果: ${searchQuery}`;
             }
 
-            countElement.innerText = `[ 共載入 ${productsToRender.length} 項武裝 ]`;
+            countElement.innerText = `共 ${productsToRender.length} 件商品`;
             productGrid.innerHTML = '';
 
-            // 查無資料處理
             if (productsToRender.length === 0) {
-                productGrid.innerHTML = `<div class="col-span-full text-center py-20 text-gray-500 border border-gray-800 rounded-xl bg-gray-900/50">查無相關彈藥資料。</div>`;
+                productGrid.innerHTML = `<div class="col-span-full text-center py-20 text-gray-500 bg-white rounded-xl border border-gray-100">查無相關商品。</div>`;
                 return;
             }
 
-            // 渲染高科技卡片
-            productsToRender.forEach((item, index) => {
-                const delay = index * 30; // 瀑布流載入特效延遲
-                
-                // 清除可能殘留的 "已放入購物車" 字眼
+            // 產生白晝版專業卡片
+            productsToRender.forEach(item => {
                 const cleanName = item.name.replace('已放入購物車', '').trim();
-
                 const cardHTML = `
-                    <div class="glass-panel rounded-xl overflow-hidden tech-card relative flex flex-col animate-fade-in-up" style="animation-delay: ${delay}ms; animation-fill-mode: both;">
-                        <div class="h-56 bg-gray-900 relative p-2 group cursor-pointer">
-                            <img src="${item.image}" alt="${cleanName}" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent pointer-events-none"></div>
+                    <div class="bg-white rounded-xl overflow-hidden product-card border border-gray-100 flex flex-col">
+                        <div class="h-40 sm:h-52 bg-gray-100 relative group cursor-pointer overflow-hidden">
+                            <img src="${item.image}" alt="${cleanName}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
-                        <div class="p-5 flex flex-col flex-grow">
-                            <h3 class="text-lg font-bold text-white mb-3 line-clamp-2 leading-snug">${cleanName}</h3>
-                            <div class="mt-auto flex justify-between items-end pt-4 border-t border-gray-800">
-                                <span class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">專屬報價</span>
-                                <button onclick="addToCart()" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-pink-600 flex items-center justify-center transition-colors border border-gray-700 hover:border-pink-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.6)]">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <div class="p-4 flex flex-col flex-grow">
+                            <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-2 line-clamp-2 leading-snug">${cleanName}</h3>
+                            <div class="mt-auto pt-3 border-t border-gray-100">
+                                <p class="text-xs text-red-600 font-bold mb-2 flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                                    登入查看大盤批發價
+                                </p>
+                                <button onclick="addToCart()" class="w-full bg-gray-900 hover:bg-red-600 text-white py-2 rounded-lg text-sm font-bold transition-colors flex items-center justify-center gap-2">
+                                    加入詢價
                                 </button>
                             </div>
                         </div>
@@ -245,29 +212,29 @@
             });
         }
 
-        // 搜尋監聽器
+        function addToCart() {
+            const cartElement = document.getElementById('cartCount');
+            cartElement.innerText = parseInt(cartElement.innerText) + 1;
+            // 簡單的點擊動畫
+            cartElement.parentElement.classList.add('scale-105', 'bg-red-600');
+            cartElement.parentElement.classList.remove('bg-gray-900');
+            setTimeout(() => {
+                cartElement.parentElement.classList.remove('scale-105', 'bg-red-600');
+                cartElement.parentElement.classList.add('bg-gray-900');
+            }, 200);
+        }
+
+        // 搜尋監聽
         const handleSearch = (e) => {
             const query = e.target.value.trim();
             renderProducts('全部商品', query);
-            
-            // 同步兩個搜尋框的文字
-            if(e.target.id === 'searchInput') searchInputMobile.value = query;
-            if(e.target.id === 'searchInputMobile') searchInput.value = query;
+            if(e.target.id === 'searchInput') document.getElementById('searchInputMobile').value = query;
+            if(e.target.id === 'searchInputMobile') document.getElementById('searchInput').value = query;
         };
 
-        searchInput.addEventListener('input', handleSearch);
-        searchInputMobile.addEventListener('input', handleSearch);
+        document.getElementById('searchInput').addEventListener('input', handleSearch);
+        document.getElementById('searchInputMobile').addEventListener('input', handleSearch);
 
-        // 購物車動態效果
-        function addToCart() {
-            cartTotal++;
-            const cartElement = document.getElementById('cartCount');
-            cartElement.innerText = cartTotal;
-            cartElement.classList.add('animate-ping');
-            setTimeout(() => cartElement.classList.remove('animate-ping'), 300);
-        }
-
-        // 啟動引擎
         init();
     </script>
 </body>
