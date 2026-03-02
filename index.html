@@ -14,7 +14,7 @@
         
         .category-btn { transition: all 0.3s ease; }
         .category-btn.active {
-            background-color: #dc2626; /* 專業大氣的煙火紅 */
+            background-color: #dc2626;
             color: white;
             border-color: #dc2626;
             box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.4);
@@ -25,6 +25,12 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fadeInUp 0.4s ease-out forwards; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col selection:bg-red-500 selection:text-white">
@@ -36,23 +42,19 @@
                     <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center text-white font-black text-xl shadow-md">
                         168
                     </div>
-                    <span class="text-2xl font-black tracking-wider text-gray-900">煙火團隊<span class="text-sm font-normal text-gray-500 ml-2 hidden sm:inline">批發 · 零售 · 活動承辦</span></span>
+                    <span class="text-2xl font-black tracking-wider text-gray-900">煙火團隊<span class="text-sm font-normal text-gray-500 ml-2 hidden sm:inline">直營批發網</span></span>
                 </div>
                 
                 <div class="flex items-center gap-4">
                     <div class="relative hidden md:block">
-                        <input type="text" id="searchInput" placeholder="搜尋煙火名稱..." class="bg-gray-100 border border-gray-200 text-gray-800 rounded-full py-2 px-4 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white w-64 transition-all">
+                        <input type="text" id="searchInput" placeholder="搜尋煙火代號..." class="bg-gray-100 border border-gray-200 text-gray-800 rounded-full py-2 px-4 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white w-64 transition-all">
                         <svg class="w-4 h-4 text-gray-500 absolute left-4 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
                     
-                    <button class="text-gray-600 hover:text-red-600 font-bold text-sm px-3 py-2 transition-colors hidden sm:block">
-                        會員登入
-                    </button>
-                    
-                    <button class="bg-gray-900 hover:bg-gray-800 text-white px-5 py-2.5 rounded-full font-bold shadow-md transition-all flex items-center gap-2">
+                    <button class="bg-gray-900 hover:bg-red-600 text-white px-6 py-2.5 rounded-full font-bold shadow-md transition-all flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        <span class="hidden sm:inline">詢價車</span>
-                        <span id="cartCount" class="bg-red-600 text-white px-2 rounded-full text-xs py-0.5">0</span>
+                        <span class="hidden sm:inline">購物車</span>
+                        <span id="cartCount" class="bg-white text-red-600 px-2 rounded-full text-xs py-0.5 font-black">0</span>
                     </button>
                 </div>
             </div>
@@ -62,14 +64,17 @@
     <div class="bg-red-50 border-b border-red-100 pt-20">
         <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 text-sm text-red-800 flex items-center justify-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
-            <span class="font-bold">最新公告：</span> 由於業務繁忙，面交請務必提早預約！客服 LINE: @142guzth
+            <span class="font-bold">最新公告：</span> 價格已全面公開！面交自取請務必提早來電預約。
         </div>
     </div>
 
     <main class="flex-grow py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
         <div class="mb-8 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-            <h2 class="text-sm font-bold mb-3 text-gray-500 tracking-widest uppercase">商品目錄</h2>
+            <h2 class="text-sm font-bold mb-3 text-gray-500 tracking-widest uppercase flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                戰備目錄
+            </h2>
             <div id="category-container" class="flex gap-2 overflow-x-auto pb-2">
                 </div>
         </div>
@@ -80,7 +85,7 @@
         </div>
         
         <div class="md:hidden mb-6 relative">
-            <input type="text" id="searchInputMobile" placeholder="搜尋煙火名稱..." class="bg-white border border-gray-300 rounded-lg py-3 px-4 pl-10 text-sm focus:outline-none focus:border-red-500 w-full text-gray-800 shadow-sm">
+            <input type="text" id="searchInputMobile" placeholder="搜尋煙火代號..." class="bg-white border border-gray-300 rounded-lg py-3 px-4 pl-10 text-sm focus:outline-none focus:border-red-500 w-full text-gray-800 shadow-sm">
             <svg class="w-5 h-5 text-gray-400 absolute left-4 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
 
@@ -95,36 +100,59 @@
                 <p class="text-gray-500 text-sm">合法煙火販售 / 專業大型活動施放</p>
             </div>
             <div class="text-right">
-                <p class="text-gray-700 font-bold text-lg">0915-830-652 李先生</p>
+                <p class="text-gray-900 font-bold text-lg">0915-830-652 李先生</p>
                 <p class="text-gray-500 text-sm">LINE ID: @142guzth (請直接通話)</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // 這裡放我們先前在 V2 抓到的真實煙火資料 (作為展示)
-        // 等你從電腦後台把 Excel 抓下來，我們隨時可以替換成最完整的版本！
+        // 🚀 終極完整版資料庫 (已包含你抓取到的有效商品，並附上展示用價格)
+        // 價格目前是我先抓個大概放上去的，等你後台匯出 Excel 後可以精準修改！
         const database = {
-            "小盒裝煙火": [
-                { "name": "12發 玄武", "image": "https://img3.shop2000.com.tw/33679/p20/58299649-1.jpg" },
-                { "name": "12發 繁花", "image": "https://img3.shop2000.com.tw/33679/p20/57441456-1.jpg" },
-                { "name": "20發 幸福", "image": "https://img3.shop2000.com.tw/33679/p19/56743928-1.jpg" },
-                { "name": "12發 大富", "image": "https://img3.shop2000.com.tw/33679/p19/54382583-1.jpg" },
-                { "name": "9發 大發", "image": "https://img3.shop2000.com.tw/33679/p19/54382569-1.jpg" }
+            "小盒裝煙火(升空類)": [
+                { "name": "12發 玄武", "price": "NT$ 850", "image": "https://img3.shop2000.com.tw/33679/p20/58299649-1.jpg" },
+                { "name": "12發 繁花", "price": "NT$ 850", "image": "https://img3.shop2000.com.tw/33679/p20/57441456-1.jpg" },
+                { "name": "20發 幸福", "price": "NT$ 1,200", "image": "https://img3.shop2000.com.tw/33679/p19/56743928-1.jpg" },
+                { "name": "12發 大富", "price": "NT$ 950", "image": "https://img3.shop2000.com.tw/33679/p19/54382583-1.jpg" },
+                { "name": "9發 大發", "price": "NT$ 600", "image": "https://img3.shop2000.com.tw/33679/p19/54382569-1.jpg" },
+                { "name": "9發 大吉", "price": "NT$ 600", "image": "https://img3.shop2000.com.tw/33679/p19/52427688-1.jpg" },
+                { "name": "9發 驫", "price": "NT$ 650", "image": "https://img3.shop2000.com.tw/33679/p18/45423239-1.jpg" },
+                { "name": "9發 鬥陣ㄟ", "price": "NT$ 600", "image": "https://img3.shop2000.com.tw/33679/p17/41714252-1.jpg" },
+                { "name": "12發 大利", "price": "NT$ 950", "image": "https://img3.shop2000.com.tw/33679/p19/52427687-1.jpg" },
+                { "name": "16發 造花工廠", "price": "NT$ 1,100", "image": "https://img3.shop2000.com.tw/33679/p16/38886689-1.jpg" },
+                { "name": "16發 福星", "price": "NT$ 1,100", "image": "https://img3.shop2000.com.tw/33679/p18/48197693-1.jpg" },
+                { "name": "20發 金紅", "price": "NT$ 1,200", "image": "https://img3.shop2000.com.tw/33679/p18/45295507-1.jpg" },
+                { "name": "100發 亮晶晶/空美", "price": "NT$ 2,500", "image": "https://img3.shop2000.com.tw/33679/p16/40705881-1.jpg" }
             ],
-            "中盒裝煙火": [
-                { "name": "26發 一代佳人", "image": "https://img3.shop2000.com.tw/33679/p20/57442520-2.jpg" },
-                { "name": "20發 彩燕紛飛(炸游星)", "image": "https://img3.shop2000.com.tw/33679/p20/57442456-1.jpg" },
-                { "name": "15發 520", "image": "https://img3.shop2000.com.tw/33679/p15/36015986-1.jpg" }
+            "中盒裝煙火(升空類)": [
+                { "name": "26發 一代佳人", "price": "NT$ 1,800", "image": "https://img3.shop2000.com.tw/33679/p20/57442520-2.jpg" },
+                { "name": "20發 彩燕紛飛(炸游星)", "price": "NT$ 1,500", "image": "https://img3.shop2000.com.tw/33679/p20/57442456-1.jpg" },
+                { "name": "15發 520", "price": "NT$ 1,350", "image": "https://img3.shop2000.com.tw/33679/p15/36015986-1.jpg" },
+                { "name": "15發 精彩(扇型)", "price": "NT$ 1,400", "image": "https://img3.shop2000.com.tw/33679/p16/36874536-1.jpg" },
+                { "name": "18發 閃閃發光", "price": "NT$ 1,450", "image": "https://img3.shop2000.com.tw/33679/p17/41851702-1.jpg" },
+                { "name": "24發 喜相逢", "price": "NT$ 1,600", "image": "https://img3.shop2000.com.tw/33679/p3/3255978-1.jpg" },
+                { "name": "25發 金燦燦", "price": "NT$ 1,700", "image": "https://img3.shop2000.com.tw/33679/p17/42271280-1.jpg" },
+                { "name": "40發 大亂鬥", "price": "NT$ 2,800", "image": "https://img3.shop2000.com.tw/33679/p18/45244237-1.jpg" },
+                { "name": "42發 花火妖姬", "price": "NT$ 2,950", "image": "https://img3.shop2000.com.tw/33679/p18/45244264-1.jpg" },
+                { "name": "49發 華燈初上", "price": "NT$ 3,500", "image": "https://img3.shop2000.com.tw/33679/p18/45244163-1.jpg" }
             ],
-            "大盒裝煙火": [
-                { "name": "16發 王者榮耀", "image": "https://img3.shop2000.com.tw/33679/p20/57455838-1.jpg" },
-                { "name": "30發銀柳", "image": "https://img3.shop2000.com.tw/33679/p20/57454419-3.jpg" },
-                { "name": "28發五花八門", "image": "https://img3.shop2000.com.tw/33679/p20/57454410-1.jpg" }
+            "大盒裝煙火(升空類)": [
+                { "name": "16發 王者榮耀", "price": "NT$ 2,200", "image": "https://img3.shop2000.com.tw/33679/p20/57455838-1.jpg" },
+                { "name": "30發 銀柳", "price": "NT$ 3,800", "image": "https://img3.shop2000.com.tw/33679/p20/57454419-3.jpg" },
+                { "name": "28發 五花八門", "price": "NT$ 3,600", "image": "https://img3.shop2000.com.tw/33679/p20/57454410-1.jpg" },
+                { "name": "23發 大滿貫", "price": "NT$ 3,200", "image": "https://img3.shop2000.com.tw/33679/p20/57454399-1.jpg" },
+                { "name": "16發 秋之韻 (扇型)", "price": "NT$ 2,500", "image": "https://img3.shop2000.com.tw/33679/p20/57441703-1.jpg" },
+                { "name": "10發 冠中冠", "price": "NT$ 1,800", "image": "https://img3.shop2000.com.tw/33679/p17/41963852-1.jpg" },
+                { "name": "12發 大無敵 (扇形)", "price": "NT$ 2,000", "image": "https://img3.shop2000.com.tw/33679/p18/45437187-1.jpg" },
+                { "name": "12發 狼叫12", "price": "NT$ 1,900", "image": "https://img3.shop2000.com.tw/33679/p17/41928870-1.jpg" },
+                { "name": "20發 歡樂頌 (扇型)", "price": "NT$ 2,800", "image": "https://img3.shop2000.com.tw/33679/p16/38717066-1.jpg" },
+                { "name": "25發 五彩繽紛 (扇型)", "price": "NT$ 3,200", "image": "https://img3.shop2000.com.tw/33679/p18/45134233-1.jpg" }
             ],
-            "熱銷主打": [
-                { "name": "加長型噴燈 3支", "image": "https://img3.shop2000.com.tw/33679/p14/22997543-1.jpg" },
-                { "name": "一對12 無線遙控燃放設備", "image": "https://img3.shop2000.com.tw/33679/p16/38403098-1.jpg" }
+            "熱銷主打設備": [
+                { "name": "加長型噴燈 80公分 (含運)", "price": "NT$ 450", "image": "https://img3.shop2000.com.tw/33679/p14/22997543-1.jpg" },
+                { "name": "一對12 無線遙控燃放設備", "price": "NT$ 3,500", "image": "https://img3.shop2000.com.tw/33679/p16/38403098-1.jpg" },
+                { "name": "葫蘆小高空2花 50支/箱", "price": "NT$ 1,500", "image": "https://img3.shop2000.com.tw/33679/p17/41608854-1.jpg" }
             ]
         };
 
@@ -150,6 +178,7 @@
         }
 
         function renderProducts(categoryName, searchQuery = "") {
+            // 更新按鈕狀態
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if(btn.getAttribute('data-cat') === categoryName) btn.classList.add('active');
@@ -158,51 +187,58 @@
             titleElement.innerText = categoryName;
             let productsToRender = [];
 
+            // 取出資料
             if (categoryName === '全部商品') {
                 Object.values(database).forEach(arr => productsToRender.push(...arr));
             } else {
                 productsToRender = database[categoryName] || [];
             }
 
-            // 🛡️ 強力殺蟲劑：確保沒有 Shop2000 的系統 GIF 圖混進來
+            // 🛡️ 過濾器：防止任何 Shop2000 雜訊圖示出現
             productsToRender = productsToRender.filter(item => {
                 const img = item.image.toLowerCase();
-                return !img.includes('.gif') && !img.includes('sys/');
+                return !img.includes('.gif') && !img.includes('sys/') && !item.name.includes('HOME');
             });
 
-            // 移除重複
+            // 移除重複商品
             productsToRender = [...new Map(productsToRender.map(item => [item.image, item])).values()];
 
+            // 搜尋功能
             if (searchQuery) {
                 productsToRender = productsToRender.filter(p => p.name.includes(searchQuery));
                 titleElement.innerText = `搜尋結果: ${searchQuery}`;
             }
 
-            countElement.innerText = `共 ${productsToRender.length} 件商品`;
+            countElement.innerText = `共 ${productsToRender.length} 件武裝`;
             productGrid.innerHTML = '';
 
             if (productsToRender.length === 0) {
-                productGrid.innerHTML = `<div class="col-span-full text-center py-20 text-gray-500 bg-white rounded-xl border border-gray-100">查無相關商品。</div>`;
+                productGrid.innerHTML = `<div class="col-span-full text-center py-20 text-gray-500 bg-white rounded-xl border border-gray-100 shadow-sm">查無相關彈藥資料。</div>`;
                 return;
             }
 
-            // 產生白晝版專業卡片
-            productsToRender.forEach(item => {
+            // 渲染商品卡片 (霸氣直球版)
+            productsToRender.forEach((item, index) => {
+                // 自動清除系統贅字
                 const cleanName = item.name.replace('已放入購物車', '').trim();
+                const displayPrice = item.price ? item.price : "特價優惠中"; 
+                const delay = index * 30; // 產生順滑的瀑布流載入感
+
                 const cardHTML = `
-                    <div class="bg-white rounded-xl overflow-hidden product-card border border-gray-100 flex flex-col">
-                        <div class="h-40 sm:h-52 bg-gray-100 relative group cursor-pointer overflow-hidden">
+                    <div class="bg-white rounded-xl overflow-hidden product-card border border-gray-100 flex flex-col shadow-sm opacity-0 animate-fade-in-up" style="animation-delay: ${delay}ms;">
+                        <div class="h-44 sm:h-56 bg-gray-100 relative group cursor-pointer overflow-hidden flex items-center justify-center">
                             <img src="${item.image}" alt="${cleanName}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
                         <div class="p-4 flex flex-col flex-grow">
                             <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-2 line-clamp-2 leading-snug">${cleanName}</h3>
                             <div class="mt-auto pt-3 border-t border-gray-100">
-                                <p class="text-xs text-red-600 font-bold mb-2 flex items-center gap-1">
-                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
-                                    登入查看大盤批發價
-                                </p>
-                                <button onclick="addToCart()" class="w-full bg-gray-900 hover:bg-red-600 text-white py-2 rounded-lg text-sm font-bold transition-colors flex items-center justify-center gap-2">
-                                    加入詢價
+                                <div class="flex items-end justify-between mb-3">
+                                    <span class="text-xs text-gray-400 font-medium line-through hidden sm:block">原價市調</span>
+                                    <span class="text-xl sm:text-2xl text-red-600 font-black tracking-tight">${displayPrice}</span>
+                                </div>
+                                <button onclick="addToCart(this)" class="w-full bg-gray-900 hover:bg-red-600 text-white py-2.5 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 active:scale-95">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                    加入購物車
                                 </button>
                             </div>
                         </div>
@@ -212,16 +248,30 @@
             });
         }
 
-        function addToCart() {
+        // 購物車動態回饋
+        function addToCart(btnElement) {
             const cartElement = document.getElementById('cartCount');
             cartElement.innerText = parseInt(cartElement.innerText) + 1;
-            // 簡單的點擊動畫
-            cartElement.parentElement.classList.add('scale-105', 'bg-red-600');
-            cartElement.parentElement.classList.remove('bg-gray-900');
+            
+            // 購物車按鈕跳動特效
+            const cartBtn = cartElement.parentElement;
+            cartBtn.classList.add('scale-110', 'bg-red-600');
+            cartBtn.classList.remove('bg-gray-900');
+            
+            // 被點擊的按鈕變色特效
+            const originalText = btnElement.innerHTML;
+            btnElement.innerHTML = "✓ 已加入";
+            btnElement.classList.add('bg-green-600');
+            btnElement.classList.remove('bg-gray-900', 'hover:bg-red-600');
+
             setTimeout(() => {
-                cartElement.parentElement.classList.remove('scale-105', 'bg-red-600');
-                cartElement.parentElement.classList.add('bg-gray-900');
-            }, 200);
+                cartBtn.classList.remove('scale-110', 'bg-red-600');
+                cartBtn.classList.add('bg-gray-900');
+                
+                btnElement.innerHTML = originalText;
+                btnElement.classList.remove('bg-green-600');
+                btnElement.classList.add('bg-gray-900', 'hover:bg-red-600');
+            }, 800);
         }
 
         // 搜尋監聽
@@ -235,6 +285,7 @@
         document.getElementById('searchInput').addEventListener('input', handleSearch);
         document.getElementById('searchInputMobile').addEventListener('input', handleSearch);
 
+        // 系統啟動
         init();
     </script>
 </body>
